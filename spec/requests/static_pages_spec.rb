@@ -1,6 +1,8 @@
 require 'spec_helper'
 
 describe "StaticPages" do
+
+	let(:base_title) 	{ "STE(A)M Truck™"}
   
   describe "Homepage" do 
 
@@ -12,7 +14,12 @@ describe "StaticPages" do
 
     it "should have the right title 'Home'" do 
     	visit '/static_pages/home'
-    	expect(page).to have_title("STE(A)M Truck™ | Home")
+    	expect(page).to have_title("#{base_title}")
+    end
+
+    it "should not have a custom page title" do 
+    	visit '/static_pages/home'
+    	expect(page).not_to have_title('| Home')
     end
   end
 
@@ -25,7 +32,7 @@ describe "StaticPages" do
 
   	it "should have the right title'Help'" do 
   		visit '/static_pages/help'
-  		expect(page).to have_title("STE(A)M Truck™ | Help")
+  		expect(page).to have_title("#{base_title}| Help")
   	end
   end
 
@@ -38,7 +45,7 @@ describe "StaticPages" do
 
   	it "should have the right title 'About'" do 
   		visit '/static_pages/about'
-  		expect(page).to have_title("STE(A)M Truck™ | About")
+  		expect(page).to have_title("#{base_title}| About")
   	end
   end
 
@@ -51,7 +58,7 @@ describe "StaticPages" do
 
   	it "should have the right title 'Contact'" do 
   		visit '/static_pages/contact'
-  		expect(page).to have_title("STE(A)M Truck™ | Contact")
+  		expect(page).to have_title("#{base_title}| Contact")
   	end
   end
 end
