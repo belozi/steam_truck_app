@@ -1,0 +1,15 @@
+<% provide(:title, "#{@user.first_name} #{@user.last_name}") %>
+
+<div class="row">
+	<aside class="span4">
+		<section>
+			<h1>
+				<%= @user.first_name %> <%= @user.last_name %>
+			</h1>
+			<p> 
+				<%= @user.school %><br>
+				<%= @user.email %><br>
+			</p>
+		</section>
+	</aside>
+</div>
