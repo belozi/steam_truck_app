@@ -12,6 +12,10 @@ $grayMediumLight: #eaeaea;
 
 /* universal */
 
+#home {
+	background-color: #008184;
+	}
+
 html {
 	overflow-y: scroll;
 	
@@ -20,6 +24,8 @@ html {
 body {
 	padding-top: 60px;
 }
+
+
 
 section {
 	overflow: auto;
