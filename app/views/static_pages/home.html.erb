@@ -1,14 +1,31 @@
-<body id="home">
-<div class="center hero-unit">
+<% if signed_in? %>
+	<div class="row">
+		<aside class="span4">
+			<section>
+				<%= render 'shared/user_info' %>
+			</section>
+			<section>
+				<%= render 'shared/post_form' %>
+			</section>
+		</aside>
+		<div class="span8">
+			<h3>Post Feed</h3>
+			<%= render 'shared/feed' %>
+		</div>
+	</div>
+<% else %>	
+	<body id="home">
+	<div class="center hero-unit">
 
-	<h1>Welcome to STE(A)M Truck™</h1>
+		<h1>Welcome to STE(A)M Truck™</h1>
 
-		<p><a href="http://community-guilds.org/steamtruck">STE(A)M Truck™</a> is a 21st century build-mobile where students solve authentic problems and build grit, self-reliance, ingenuity, teamwork and artisanship. We inspire youth to learn Science, Technology, Engineering, Arts and Math by bringing the coolest tools, equipment and mentors directly to their schools. Working in collaboration with our partners, including WonderRoot, STE(A)M Truck™ will be engaging and transformational.</p>
+			<p><a href="http://community-guilds.org/steamtruck">STE(A)M Truck™</a> is a 21st century build-mobile where students solve authentic problems and build grit, self-reliance, ingenuity, teamwork and artisanship. We inspire youth to learn Science, Technology, Engineering, Arts and Math by bringing the coolest tools, equipment and mentors directly to their schools. Working in collaboration with our partners, including WonderRoot, STE(A)M Truck™ will be engaging and transformational.</p>
 
-		<%= link_to image_tag("community_guilds.png", alt: "Community Guilds"), 'http://community-guilds.org/steamtruck' %>
+			<%= link_to image_tag("community_guilds.png", alt: "Community Guilds"), 'http://community-guilds.org/steamtruck' %>
 
-</div>
+	</div>
 
 
-		<%= link_to "Sign up now!", signup_path, class: "btn btn-large btn-primary" %>
-</body>
+			<%= link_to "Sign up now!", signup_path, class: "btn btn-large btn-primary" %>
+	</body>
+<% end %>

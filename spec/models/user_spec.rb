@@ -18,6 +18,8 @@ describe User do
   it { should respond_to(:remember_token) }
   it { should respond_to(:authenticate) }
   it { should respond_to(:admin) }
+  it { should respond_to(:posts) }
+  it { should respond_to(:feed) }
 
   it { should be_valid }
   it { should_not be_admin }
@@ -104,44 +106,78 @@ describe User do
   	it { should_not be_valid }
   end
 
-    describe "when password is not present" do 
-      before do 
-        @user = User.new(first_name: "Example", last_name: "User", email: "user@example.com",
-                              school: "Example High School", password: " ",
-                              password_confirmation: " " )
-        end
-
-      it     { should_not be_valid }
+  describe "when password is not present" do 
+    before do 
+      @user = User.new(first_name: "Example", last_name: "User", email: "user@example.com",
+                            school: "Example High School", password: " ",
+                             password_confirmation: " " )
     end
 
-    describe "when password doesn't match contribution" do 
-      before { @user.password_confirmation = "mismatch" }
-      it     { should_not be_valid }
+    it     { should_not be_valid }
+  end
+
+  describe "when password doesn't match contribution" do 
+    before { @user.password_confirmation = "mismatch" }
+    it     { should_not be_valid }
+  end
+
+  describe "with a password that is too short" do 
+    before { @user.password = @user.password_confirmation = "x" * 5 }
+    it     { should be_invalid }
+  end
+
+  describe "return value of authenticate method" do 
+    before { @user.save }
+    let(:found_user)  { User.find_by(email: @user.email) }
+
+    describe "with valid password" do 
+      it { should eq found_user.authenticate(@user.password) }
     end
 
-    describe "with a password that is too short" do 
-      before { @user.password = @user.password_confirmation = "x" * 5 }
-      it     { should be_invalid }
+    describe "with invalid password" do 
+      let(:user_for_invalid_password)   { found_user.authenticate("invalid") }
+
+      it { should_not eq user_for_invalid_password }
+      specify { expect(user_for_invalid_password).to be_false }
+    end
+  end
+
+  describe "remember_token" do 
+    before { @user.save }
+    its(:remember_token) { should_not be_blank }
+  end
+
+  describe "post associations" do 
+
+    before { @user.save }
+    let!(:older_post) do 
+      FactoryGirl.create(:post, user: @user, created_at: 1.day.ago)
+    end
+    let!(:newer_post) do
+      FactoryGirl.create(:post, user: @user, created_at: 1.hour.ago)
     end
 
-    describe "return value of authenticate method" do 
-      before { @user.save }
-      let(:found_user)  { User.find_by(email: @user.email) }
+    it "should have the right posts in the right order" do 
+      expect(@user.posts.to_a).to eq [newer_post, older_post]
+    end
 
-      describe "with valid password" do 
-        it { should eq found_user.authenticate(@user.password) }
+    it "should destroy associated posts" do 
+      posts = @user.posts.to_a
+      @user.destroy
+      expect(posts).not_to be_empty
+      posts.each do |post|
+        expect(Post.where(id: post.id)).to be_empty
+      end
+    end
+
+    describe "status" do 
+      let(:unfollowed_post) do 
+        FactoryGirl.create(:post, user: FactoryGirl.create(:user))
       end
 
-      describe "with invalid password" do 
-        let(:user_for_invalid_password)   { found_user.authenticate("invalid") }
-
-        it { should_not eq user_for_invalid_password }
-        specify { expect(user_for_invalid_password).to be_false }
-      end
+      its(:feed) { should include(newer_post) }
+      its(:feed) { should include(older_post) }
+      its(:feed) { should_not include(unfollowed_post) }
     end
-
-    describe "remember_token" do 
-      before { @user.save }
-      its(:remember_token) { should_not be_blank }
-    end
+  end
 end

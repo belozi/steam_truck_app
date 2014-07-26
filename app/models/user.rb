@@ -1,5 +1,6 @@
 class User < ActiveRecord::Base
 
+	has_many :posts, dependent: :destroy
 	has_secure_password
 	before_save { email.downcase! }
 	before_create :create_remember_token
@@ -18,6 +19,10 @@ class User < ActiveRecord::Base
 
 	def User.digest(token)
 		Digest::SHA1.hexdigest(token.to_s)
+	end
+
+	def feed
+		Post.where("user_id = ?", id)
 	end
 
 	private
