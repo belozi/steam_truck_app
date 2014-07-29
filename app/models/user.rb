@@ -16,8 +16,9 @@ class User < ActiveRecord::Base
 	validates :email, presence: true, format: { with: VALID_EMAIL_REGEX },
 						uniqueness: { case_sensitive: false }
 	validates :school, presence: true
-	
 	validates :password, length: { minimum: 6 }
+
+	mount_uploader :pic, PicUploader
 
 	def User.new_remember_token
 		SecureRandom.urlsafe_base64

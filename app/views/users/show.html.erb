@@ -4,7 +4,12 @@
 	<aside class="span4">
 		<section>
 			<h1>
+				<div class="hero-unit">
+					<%= image_tag @user.pic_url %>
+				</div>
+				<p>
 				<%= @user.first_name %> <%= @user.last_name %>
+			</p>
 			</h1>
 			<p> 
 				<%= @user.school %><br>
@@ -25,4 +30,4 @@
 			<%= will_paginate @posts %>
 		<% end %>
 	</div>	
-</div>
+</div> 
