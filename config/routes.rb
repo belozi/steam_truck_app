@@ -8,7 +8,7 @@ SteamTruckApp::Application.routes.draw do
   resources :sessions, only: [:new, :create, :destroy]
   resources :posts, only: [:create, :destroy]
   resources :relationships, only: [:create, :destroy]
-  resources :projects, only: [:create, :destroy]
+  resources :projects
   root "static_pages#home"
   match '/signup',        to: 'users#new',              via: 'get'
   match '/projects',      to: 'projects#index',         via: 'get'

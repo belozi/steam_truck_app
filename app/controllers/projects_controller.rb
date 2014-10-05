@@ -1,5 +1,6 @@
 class ProjectsController < ApplicationController
-	before_action :signed_in_user, only: [:create, :destroy]
+  before_action :signed_in_user, only: [:create, :edit, :update, :destroy]
+  before_action :correct_user, only: [:edit, :update, :destroy]
 
 	def new
 		@project = Project.new
@@ -11,13 +12,14 @@ class ProjectsController < ApplicationController
 	end
 
 	def show 
+    @project = Project.find(params[:id])
 	end
 
 	def create
   		@project = current_user.projects.build(project_params)
   		if @project.save
   			flash[:success] = "Project created!"
-  			redirect_to(projects_path)
+  			redirect_to @project
   		else
   			render 'new'
   		end
