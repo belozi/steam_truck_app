@@ -4,6 +4,7 @@ namespace :db do
 		make_users
 		make_posts
 		make_relationships
+		make_projects
 	end
 end
 
@@ -46,3 +47,15 @@ def make_relationships
 	followed_users.each { |followed| user.follow!(followed) }
 	followers.each		{ |follower| follower.follow!(user) }
 end 
+
+def make_projects
+	users = User.all(limit: 3)
+	2.times do 
+		project_title = Faker::Lorem.sentence
+		description = Faker::Lorem.sentence(5)
+		problem = Faker::Lorem.sentence
+		solution = Faker::Lorem.sentence
+		status = Faker::Lorem.sentence
+		users.each { |user| user.projects.create!(project_title: project_title, description: description, problem: problem, solution: solution, status: status) }
+	end
+end

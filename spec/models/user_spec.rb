@@ -19,6 +19,7 @@ describe User do
   it { should respond_to(:authenticate) }
   it { should respond_to(:admin) }
   it { should respond_to(:posts) }
+  it { should respond_to(:projects) }
   it { should respond_to(:feed) }
   it { should respond_to(:relationships) }
   it { should respond_to(:followed_users) }
@@ -193,6 +194,21 @@ describe User do
           should include(post)
         end
       end
+    end
+  end
+
+  describe "project associations" do 
+
+    before { @user.save }
+    let!(:older_project) do 
+      FactoryGirl.create(:project, user: @user, created_at: 1.day.ago)
+    end
+    let!(:newer_project) do 
+      FactoryGirl.create(:project, user: @user, created_at: 1.hour.ago)
+    end
+
+    it "should have the right projects in the right order" do 
+      expect(@user.projects.to_a).to eq [newer_project, older_project]
     end
   end
 

@@ -1,0 +1,8 @@
+<% provide(:title, 'Projects') %>
+<h1>Projects</h1>
+<% @projects.each do |project| %>
+	<ul>	
+			<li><%= project.project_title %> | <%= project.description %> | <%= time_ago_in_words(project.created_at) %> ago</li> 
+
+	</ul>
+<% end %>

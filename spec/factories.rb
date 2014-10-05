@@ -16,4 +16,12 @@ FactoryGirl.define do
 		content "Lorem ipsum"
 		user
 	end
+
+	factory :project do 
+		project_title 	"Middle School Project"
+		description		"We're at the Middle School solving problems"
+		problem 		"The kids want to learn"
+		solution		"Teach the kids"
+		status			"In effect"
+	end
 end
