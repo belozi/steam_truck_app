@@ -1,1 +1,19 @@
-<%= render 'shared/project_form' %>
+<% provide(:title, 'Edit Project') %>
+
+<h1>Edit Project</h1>
+
+<div class="row">
+	<div class="span6 offset3">
+		<%= form_for(@project) do |f| %>
+			<%= render 'shared/error_messages', object: f.object %>
+			<div class="field">
+				<%= f.text_area :project_title, placeholder: "New title..." %>
+				<%= f.text_area :description, placeholder: "New description..." %>
+				<%= f.text_area :problem, placeholder: "New problem..." %>
+				<%= f.text_area :solution, placeholder: "New solution...." %>
+				<%= f.text_area :status, placeholder: "Update status..." %>
+			</div>
+			<%= f.submit "Save Changes", class: "btn btn-large btn-primary" %>
+		<% end %>
+	</div>
+</div>

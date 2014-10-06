@@ -49,4 +49,9 @@ class ProjectsController < ApplicationController
   		params.require(:project).permit(:project_title,:description, :problem, :solution, 
   										:status) 
   		end
+
+      def correct_user
+        @project = current_user.projects.find_by(id: params[:id])
+        redirect_to root_url if @project.nil?
+      end
 end
