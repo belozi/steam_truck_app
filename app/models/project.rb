@@ -7,4 +7,5 @@ class Project < ActiveRecord::Base
 	validates :solution, presence: true, length: { maximum: 300 }
 	validates :status, presence: true, length: { maximum: 100 }
 	validates :user_id, presence: true
+	mount_uploader :image, PicUploader
 end

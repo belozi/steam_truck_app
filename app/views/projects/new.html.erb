@@ -4,7 +4,7 @@
 
 <div class="row">
 	<div class="span6 offset3">
-		<%= form_for(@project) do |f| %>
+		<%= form_for(@project), :html => {:multipart => true} do |f| %>
 			<%= render 'shared/error_messages', object: f.object %>
 			<div class="field">
 				<%= f.text_area :project_title, placeholder: "Add title..." %>
@@ -12,6 +12,7 @@
 				<%= f.text_area :problem, placeholder: "Add problem..." %>
 				<%= f.text_area :solution, placeholder: "Add solution...." %>
 				<%= f.text_area :status, placeholder: "Current status..." %>
+				<%= f.file_field :image %>
 			</div>
 			<%= f.submit "Start Project", class: "btn btn-large btn-primary" %>
 		<% end %>

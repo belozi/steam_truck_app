@@ -12,6 +12,7 @@
 				<%= f.text_area :problem, placeholder: "New problem..." %>
 				<%= f.text_area :solution, placeholder: "New solution...." %>
 				<%= f.text_area :status, placeholder: "Update status..." %>
+				<%= f.file_field :image %>
 			</div>
 			<%= f.submit "Save Changes", class: "btn btn-large btn-primary" %>
 		<% end %>
