@@ -1,10 +1,13 @@
 <% provide(:title, 'Projects') %>
 <h1>Projects</h1>
+<body id="home">
+<div class="hero-unit">
 <% @projects.each do |project| %>
 	<ul>	
 			<li><%= link_to "#{project.project_title}", project %> | <%= project.description %> | <%= time_ago_in_words(project.created_at) %> ago</li> 
 
 	</ul>
 <% end %>
-
+</div>
 <%= link_to "New Project", new_project_path, class: "btn btn-large btn-primary" %>
+</body>
