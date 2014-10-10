@@ -1,38 +1,41 @@
 <% provide(:title, "Edit user") %>
 <h1>Update your profile</h1>
+<body id="home">
+	<div class="hero-unit">
+		<div class="row">
+			<div class="span6 offset3">
+				<%= form_for @user, html: {multipart: true} do |f| %>
+					<%= render 'shared/error_messages', object: f.object %>
 
-<div class="row">
-	<div class="span6 offset3">
-		<%= form_for @user, html: {multipart: true} do |f| %>
-			<%= render 'shared/error_messages', object: f.object %>
+					<%= f.label :first_name %>
+					<%= f.text_field :first_name %>
 
-			<%= f.label :first_name %>
-			<%= f.text_field :first_name %>
+					<%= f.label :last_name %>
+					<%= f.text_field :last_name %>
 
-			<%= f.label :last_name %>
-			<%= f.text_field :last_name %>
+					<%= f.label :email %>
+					<%= f.text_field :email %>
 
-			<%= f.label :email %>
-			<%= f.text_field :email %>
+					<%= f.label :school %>
+					<%= f.text_field :school %>
 
-			<%= f.label :school %>
-			<%= f.text_field :school %>
+					<%= f.label :password %>
+					<%= f.password_field :password %>
 
-			<%= f.label :password %>
-			<%= f.password_field :password %>
+					<%= f.label :password_confirmation, "Confirm Password" %>
+					<%= f.password_field :password_confirmation %>
 
-			<%= f.label :password_confirmation, "Confirm Password" %>
-			<%= f.password_field :password_confirmation %>
+					<%= image_tag(@user.pic_url) if @user.pic? %>
+					<%= f.file_field :pic %>
 
-			<%= image_tag(@user.pic_url) if @user.pic? %>
-			<%= f.file_field :pic %>
+					<label>
+						<%= f.check_box :remove_pic %>
+						remove pic
+					</label>
 
-			<label>
-				<%= f.check_box :remove_pic %>
-				remove pic
-			</label>
-
-			<%= f.submit "Save changes", class: "btn btn-large btn-primary" %>
-		<% end %>
-	</div>	
-</div>
+					<%= f.submit "Save changes", class: "btn btn-large btn-primary" %>
+				<% end %>
+			</div>	
+		</div>
+	</div>
+</body>

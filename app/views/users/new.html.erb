@@ -1,14 +1,17 @@
 <% provide(:title, 'Sign up') %>
 
 <h1>Sign up</h1>
-
-<div class="row">
-	<div class="span6 offset3">
-		<%= form_for @user, html: {multipart: true} do |f| %>
-			<%= render 'shared/error_messages', object: f.object %>
-			<%= render 'fields', f: f %>
-			<%= f.file_field :pic %>
-			<%= f.submit "Create my account", class: "btn btn-large btn-primary" %>
-		<% end %>
+<body id="home">
+	<div class="hero-unit">
+		<div class="row">
+			<div class="span6 offset3">
+				<%= form_for @user, html: {multipart: true} do |f| %>
+					<%= render 'shared/error_messages', object: f.object %>
+					<%= render 'fields', f: f %>
+					<%= f.file_field :pic %>
+					<%= f.submit "Create my account", class: "btn btn-large btn-primary" %>
+				<% end %>
+			</div>
+		</div>
 	</div>
-</div>
+</body>
